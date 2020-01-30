@@ -1,0 +1,11 @@
+body {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.login-title {
+    text-align: center;
+}
+
+.submit-button {
+    width: 100%;
+}
