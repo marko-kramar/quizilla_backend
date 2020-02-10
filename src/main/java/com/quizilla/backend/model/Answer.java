@@ -1,19 +1,19 @@
 package com.quizilla.backend.model;
 
 public class Answer {
-    private int id;
+    private Long id;
     private String answer;
 
-    public Answer(final int id, final String answer) {
+    public Answer(final Long id, final String answer) {
         this.id = id;
         this.answer = answer;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

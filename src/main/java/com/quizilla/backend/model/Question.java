@@ -1,28 +1,29 @@
 package com.quizilla.backend.model;
 
 import java.util.List;
-import java.util.UUID;
 
 public class Question {
-    private UUID id;
+    private Long id;
     private String question;
-    private String category;
+    private Category category;
     private List<Answer> answers;
-    private int correctAnswerId;
+    private Long correctAnswerId;
+    private Language language;
 
-    public Question(final UUID id, final String question, final String category, final List<Answer> answers, final int correctAnswerId) {
+    public Question(Long id, String question, Category category, List<Answer> answers, Long correctAnswerId, Language language) {
         this.id = id;
         this.question = question;
         this.category = category;
         this.answers = answers;
         this.correctAnswerId = correctAnswerId;
+        this.language = language;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -34,11 +35,11 @@ public class Question {
         this.question = question;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -50,11 +51,19 @@ public class Question {
         this.answers = answers;
     }
 
-    public int getCorrectAnswerId() {
+    public Long getCorrectAnswerId() {
         return correctAnswerId;
     }
 
-    public void setCorrectAnswerId(int correctAnswerId) {
+    public void setCorrectAnswerId(Long correctAnswerId) {
         this.correctAnswerId = correctAnswerId;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 }
