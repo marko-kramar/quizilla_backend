@@ -1,11 +1,7 @@
 package com.quizilla.backend.controller;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class AdminController {
@@ -20,27 +16,27 @@ public class AdminController {
         return "dashboard";
     }
 
-    @PostMapping(value = "/quizilla/admin/doLogin", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String doLogin(@RequestBody MultiValueMap<String, String> formData) {
-        if (formData == null) {
-            return redirectToLogin();
-        }
-
-        final String username = formData.getFirst("username");
-        final String password = formData.getFirst("password");
-        if ("pero".equalsIgnoreCase(username) && "pero".equalsIgnoreCase(password)) {
-            return redirectToDashboard();
-        }
-
-        return redirectToLogin();
-    }
-
-    private String redirectToLogin() {
-        return "redirect:/quizilla/admin/login";
-    }
-
-    private String redirectToDashboard() {
-        return "redirect:/quizilla/admin/dashboard";
-    }
+//    @PostMapping(value = "/quizilla/admin/doLogin", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+//    public String doLogin(@RequestBody MultiValueMap<String, String> formData) {
+//        if (formData == null) {
+//            return redirectToLogin();
+//        }
+//
+//        final String username = formData.getFirst("username");
+//        final String password = formData.getFirst("password");
+//        if ("pero".equalsIgnoreCase(username) && "pero".equalsIgnoreCase(password)) {
+//            return redirectToDashboard();
+//        }
+//
+//        return redirectToLogin();
+//    }
+//
+//    private String redirectToLogin() {
+//        return "redirect:/quizilla/admin/login";
+//    }
+//
+//    private String redirectToDashboard() {
+//        return "redirect:/quizilla/admin/dashboard";
+//    }
 
 }

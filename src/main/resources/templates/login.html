@@ -1,33 +1,16 @@
 <!DOCTYPE html>
-<head xmlns:th="http://www.thymeleaf.org">
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
-    <title>Login | Quizilla Admin</title>
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <br/>
-                <h1 class="login-title display-5">Quizilla admin login</h1>
-                <hr/>
-                <form>
-                    <div class="form-group">
-                        <input placeholder="Enter username..." type="text" class="form-control" id="username"/>
-                    </div>
-                    <div class="form-group">
-                        <input placeholder="Enter password..." type="password" class="form-control" id="password">
-                    </div>
-                    <button type="submit" class="submit-button btn btn-lg btn-primary">Login</button>
-                </form>
-            </div>
-            <div class="col-md-4"></div>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Login | Quizilla Admin</title>
+        <link rel="stylesheet" type="text/css" href="/vendor/material/material-components-web.min.css" />
+        <script src="/vendor/material/material-components-web.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <button class="mdc-button mdc-button--outlined">
+                <span class="mdc-button__ripple"></span>Learn More
+            </button>
         </div>
-
-    </div>
-    <script th:src="@{/js/login.js}"></script>
-</body>
+    </body>
 </html>
