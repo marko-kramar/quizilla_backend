@@ -1,23 +1,26 @@
 package com.quizilla.backend.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Question {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String question;
-    private Category category;
-    private List<Answer> answers;
-    private Long correctAnswerId;
-    private Language language;
 
-    public Question(Long id, String question, Category category, List<Answer> answers, Long correctAnswerId, Language language) {
-        this.id = id;
-        this.question = question;
-        this.category = category;
-        this.answers = answers;
-        this.correctAnswerId = correctAnswerId;
-        this.language = language;
-    }
+    @OneToOne
+    private Category category;
+
+    @OneToMany
+    private List<Answer> answers;
+
+    @OneToOne
+    private Answer correctAnswer;
+
+    @OneToOne
+    private Language language;
 
     public Long getId() {
         return id;
@@ -51,12 +54,12 @@ public class Question {
         this.answers = answers;
     }
 
-    public Long getCorrectAnswerId() {
-        return correctAnswerId;
+    public Answer getCorrectAnswer() {
+        return correctAnswer;
     }
 
-    public void setCorrectAnswerId(Long correctAnswerId) {
-        this.correctAnswerId = correctAnswerId;
+    public void setCorrectAnswer(Answer correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 
     public Language getLanguage() {

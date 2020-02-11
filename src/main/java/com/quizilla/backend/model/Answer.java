@@ -1,13 +1,16 @@
 package com.quizilla.backend.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Answer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String answer;
-
-    public Answer(final Long id, final String answer) {
-        this.id = id;
-        this.answer = answer;
-    }
 
     public Long getId() {
         return id;
