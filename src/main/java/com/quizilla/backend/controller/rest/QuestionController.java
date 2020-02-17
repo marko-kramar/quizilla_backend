@@ -17,17 +17,17 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
-    @GetMapping(path = "quizilla/api/questions")
+    @GetMapping(path = "/quizilla/api/questions")
     public List<Question> findAllQuestions() {
         return questionService.findAll();
     }
 
-    @GetMapping(path = "quizilla/api/questions/category/{category}")
+    @GetMapping(path = "/quizilla/api/questions/category/{category}")
     public List<Question> findQuestionsByCategory(@PathVariable String category) throws Exception {
         return questionService.findAllByCategory(new Category());
     }
 
-    @GetMapping(path = "quizilla/api/questions/random")
+    @GetMapping(path = "/quizilla/api/questions/random")
     public Question findRandomQuestion() {
         return questionService.findRandomQuestion();
     }
