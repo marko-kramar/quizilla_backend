@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface QuestionService {
 
-    List<Question> findAll();
-
     List<Question> findAllByCategory(Category category);
 
     Question findRandomQuestion();

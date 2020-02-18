@@ -1,72 +1,28 @@
 package com.quizilla.backend.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
-import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Entity
+@Data
 public class Question {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String question;
 
-    @OneToOne
+    @ManyToOne
     private Category category;
 
-    @OneToMany
-    private List<Answer> answers;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Map<Integer, String> answers = new TreeMap<>();
 
-    @OneToOne
-    private Answer correctAnswer;
-
-    @OneToOne
+    @ManyToOne
     private Language language;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public List<Answer> getAnswers() {
-        return answers;
-    }
-
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
-    }
-
-    public Answer getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public void setCorrectAnswer(Answer correctAnswer) {
-        this.correctAnswer = correctAnswer;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
+    private int correctAnswerId;
+    private String question;
 }

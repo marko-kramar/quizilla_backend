@@ -18,20 +18,20 @@ public class QuestionServiceImpl implements QuestionService {
     private QuestionRepository questionRepository;
 
     @Override
-    public List<Question> findAll() {
-        return (List<Question>) questionRepository.findAll();
-    }
-
-    @Override
     public List<Question> findAllByCategory(Category category) {
-        return findAll().parallelStream()
+        return ((List<Question>)questionRepository.findAll()).parallelStream()
                 .filter(question -> question.getCategory().equals(category))
                 .collect(Collectors.toList());
     }
 
     @Override
     public Question findRandomQuestion() {
-        return findAll().get(new Random().nextInt((int)questionRepository.count()));
+        final List<Question> questions = (List<Question>) questionRepository.findAll();
+        if (questions.isEmpty()) {
+            return null;
+        }
+
+        return questions.get(new Random().nextInt((int)questionRepository.count()));
     }
 
 }

@@ -16,22 +16,15 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public Optional<Category> findById(Long categoryId) {
-        return categoryRepository.findById(categoryId);
+    public Optional<Category> findCategoryByCode(String categoryCode) {
+        final List<Category> categories = (List<Category>) categoryRepository.findAll();
+        if (categories.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return categories.stream()
+                .filter(category -> category.getCode() != null && category.getCode().equalsIgnoreCase(categoryCode))
+                .findFirst();
     }
 
-    @Override
-    public List<Category> findAll() {
-        return (List<Category>) categoryRepository.findAll();
-    }
-
-    @Override
-    public Category save(Category category) {
-        return categoryRepository.save(category);
-    }
-
-    @Override
-    public void delete(Category category) {
-        categoryRepository.delete(category);
-    }
 }
