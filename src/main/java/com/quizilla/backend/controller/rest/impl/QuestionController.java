@@ -1,29 +1,67 @@
 package com.quizilla.backend.controller.rest.impl;
 
-import com.quizilla.backend.controller.rest.AbstractRestController;
+import com.quizilla.backend.dto.QuestionDto;
+import com.quizilla.backend.exception.QuizillaEntityNotFoundException;
 import com.quizilla.backend.model.Category;
-import com.quizilla.backend.model.Language;
 import com.quizilla.backend.model.Question;
 import com.quizilla.backend.repository.QuestionRepository;
 import com.quizilla.backend.service.CategoryService;
+import com.quizilla.backend.service.LanguageService;
 import com.quizilla.backend.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/quizilla/api/questions")
-public class QuestionController extends AbstractRestController<QuestionRepository, Question> {
+public class QuestionController {
+
+    @Autowired
+    private QuestionRepository questionRepository;
 
     @Autowired
     private QuestionService questionService;
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private LanguageService languageService;
+
+    @GetMapping
+    public List<Question> findAll() {
+        return (List<Question>) questionRepository.findAll();
+    }
+
+    @PostMapping
+    public Question createOne(@Valid @RequestBody QuestionDto questionDto) throws QuizillaEntityNotFoundException {
+        Question questionToSave = new Question();
+        mapQuestionDtoToQuestionEntity(questionDto, questionToSave);
+        return questionRepository.save(questionToSave);
+    }
+
+    @PutMapping(path = "/{id}")
+    public Question updateOne(@PathVariable("id") Long entityId,
+                       @Valid @RequestBody QuestionDto questionDto) throws QuizillaEntityNotFoundException {
+        Question questionFromDatabase = questionRepository.findById(entityId)
+                .orElseThrow(() -> new QuizillaEntityNotFoundException(entityId));
+
+        mapQuestionDtoToQuestionEntity(questionDto, questionFromDatabase);
+        return questionRepository.save(questionFromDatabase);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteOne(@PathVariable("id") Long entityId) throws QuizillaEntityNotFoundException {
+        Question questionToDelete = questionRepository.findById(entityId)
+                .orElseThrow(() -> new QuizillaEntityNotFoundException(entityId));
+        questionRepository.delete(questionToDelete);
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping(path = "/category/{categoryCode}")
     public List<Question> findQuestionsByCategory(@PathVariable String categoryCode) {
@@ -37,47 +75,18 @@ public class QuestionController extends AbstractRestController<QuestionRepositor
 
     @GetMapping(path = "/random")
     public Question findRandomQuestion() {
-        //return questionService.findRandomQuestion();
-        Question question = new Question();
-        Map<Integer, String> answers = new TreeMap<>();
-        answers.put(1, "Answer one");
-        answers.put(2, "Answer two");
-        question.setCategory(categoryService.findCategoryByCode("geography").orElse(null));
-
-        Language language = new Language();
-        language.setId(5L);
-        language.setCode("en");
-        language.setName("English");
-        question.setLanguage(language);
-        question.setCorrectAnswerId(1);
-        question.setQuestion("What is the name of something?");
-
-        /*
-        {
-            "id": null,
-                "category": {
-            "id": 3,
-                    "code": "geography",
-                    "name": "Geography",
-                    "description": "Category about geography..."
-        },
-            "answers": {},
-            "language": {
-            "id": 5,
-                    "code": "en",
-                    "name": "English"
-        },
-            "correctAnswerId": 1,
-                "question": "What is the name of something?"
-        }
-
-        */
-
-        return question;
+        return questionService.findRandomQuestion();
     }
 
-    @Override
-    protected void setEntityFields(Question requestEntity, Question fetchedEntity) {
-
+    private void mapQuestionDtoToQuestionEntity(final QuestionDto questionDto, Question question) throws QuizillaEntityNotFoundException{
+        question.setQuestion(questionDto.getQuestion());
+        question.setAnswers(questionDto.getAnswers());
+        question.setCategory(categoryService.findCategoryBdId(questionDto.getCategoryId())
+                .orElseThrow(() -> new QuizillaEntityNotFoundException(questionDto.getCategoryId())));
+        question.setCorrectAnswerId(questionDto.getCorrectAnswerId());
+        question.setLanguage(languageService.findLanguageById(questionDto.getLanguageId())
+                .orElseThrow(() -> new QuizillaEntityNotFoundException(questionDto.getLanguageId())));
     }
+
+
 }

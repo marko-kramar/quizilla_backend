@@ -8,4 +8,6 @@ public interface CategoryService {
 
     Optional<Category> findCategoryByCode(String categoryCode);
 
+    Optional<Category> findCategoryBdId(Long categoryId);
+
 }

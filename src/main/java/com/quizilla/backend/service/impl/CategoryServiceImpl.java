@@ -27,4 +27,9 @@ public class CategoryServiceImpl implements CategoryService {
                 .findFirst();
     }
 
+    @Override
+    public Optional<Category> findCategoryBdId(Long categoryId) {
+        return categoryRepository.findById(categoryId);
+    }
+
 }
