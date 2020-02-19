@@ -18,10 +18,12 @@ public class Category implements Serializable {
 
     @NotNull
     @NotBlank
+    @Column(unique = true)
     private String code;
 
     @NotNull
     @NotBlank
+    @Column(unique = true)
     private String name;
 
     private String description;

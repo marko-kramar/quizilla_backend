@@ -34,5 +34,6 @@ public class Question implements Serializable {
 
     @NotNull
     @NotEmpty
+    @Column(unique = true)
     private String question;
 }
