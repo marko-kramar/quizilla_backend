@@ -1,3 +1,7 @@
 .container {
 
 }
+
+th.row-number-header {
+    width: 20px;
+}
