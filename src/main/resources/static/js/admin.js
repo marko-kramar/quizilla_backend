@@ -40,12 +40,15 @@ function loadQuestions() {
 
                 QuizillaUtil.createCheckboxCell(i+1, rowElem);
                 QuizillaUtil.createRowNumCell(i+1, rowElem);
-                QuizillaUtil.createDataCell(question.id, rowElem);
+                QuizillaUtil.createDataCell(question.id, rowElem, true);
                 QuizillaUtil.createDataCell(question.question, rowElem);
                 QuizillaUtil.createDataCell(question.category.name, rowElem);
                 QuizillaUtil.createDataCell(question.language.name, rowElem);
-                QuizillaUtil.createDataCell(question.correctAnswerId, rowElem);
+                QuizillaUtil.createDataCell(question.answers[question.correctAnswerId], rowElem);
+                QuizillaUtil.createActionsCell(rowElem, question.id);
             });
+
+            $("[data-toggle='tooltip']").tooltip();
         });
 };
 
@@ -60,10 +63,13 @@ function loadCategories() {
 
                 QuizillaUtil.createCheckboxCell(i+1, rowElem);
                 QuizillaUtil.createRowNumCell(i+1, rowElem);
-                QuizillaUtil.createDataCell(category.id, rowElem);
+                QuizillaUtil.createDataCell(category.id, rowElem, true);
                 QuizillaUtil.createDataCell(category.code, rowElem);
                 QuizillaUtil.createDataCell(category.name, rowElem);
+                QuizillaUtil.createActionsCell(rowElem, category.id);
             });
+
+            $("[data-toggle='tooltip']").tooltip();
         });
 };
 
@@ -78,9 +84,12 @@ function loadLanguages() {
 
                 QuizillaUtil.createCheckboxCell(i+1, rowElem);
                 QuizillaUtil.createRowNumCell(i+1, rowElem);
-                QuizillaUtil.createDataCell(language.id, rowElem);
+                QuizillaUtil.createDataCell(language.id, rowElem, true);
                 QuizillaUtil.createDataCell(language.code, rowElem);
                 QuizillaUtil.createDataCell(language.name, rowElem);
+                QuizillaUtil.createActionsCell(rowElem, language.id);
             });
+
+            $("[data-toggle='tooltip']").tooltip();
         });
 };

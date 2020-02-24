@@ -19,10 +19,39 @@ QuizillaUtil.createRowNumCell = function(index, parentElem) {
     rowNumCell.text(index);
 };
 
-QuizillaUtil.createDataCell = function(value, parentElem) {
+QuizillaUtil.createDataCell = function(value, parentElem, hidden) {
     let idCell = $(document.createElement("td")).appendTo(parentElem);
     idCell.text(value);
+    if (hidden) {
+        idCell.css("display", "none");
+    }
     return idCell;
+};
+
+QuizillaUtil.createActionsCell = function(parentElem, id) {
+    let actionsCell = $(document.createElement("td")).appendTo(parentElem);
+    actionsCell.addClass("actions-cell");
+    actionsCell.attr("align", "center");
+
+    let editActionIcon = $(document.createElement("i")).appendTo(actionsCell);
+    editActionIcon.addClass("edit-action text-warning fas fa-pen");
+    editActionIcon.data("id-to-edit", id);
+    editActionIcon.attr({
+        "title" : "Edit",
+        "data-toggle" : "tooltip",
+        "data-placement" : "top"
+    });
+
+    actionsCell.append("&nbsp;&nbsp;&nbsp;");
+
+    let deleteActionIcon = $(document.createElement("i")).appendTo(actionsCell);
+    deleteActionIcon.addClass("delete-action text-danger fas fa-trash");
+    deleteActionIcon.data("id-to-delete", id);
+    deleteActionIcon.attr({
+        "title" : "Delete",
+        "data-toggle" : "tooltip",
+        "data-placement" : "top"
+    });
 };
 
 QuizillaUtil.getClearTableBody = function(tableBodyElem) {

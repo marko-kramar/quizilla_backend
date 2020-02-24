@@ -1,9 +1,20 @@
-.container {
-
+th.row-number-header,
+th.checkbox-col {
+    width: 20px !important;
 }
 
-th.row-number-header,
-th.checkbox-col
-{
-    width: 20px !important;
+th.actions-header {
+    width: 30px !important;
+}
+
+td.actions-cell i:hover {
+    cursor: pointer;
+}
+
+nav.navbar.navbar-light {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+th.id-header {
+    display: none !important;
 }
