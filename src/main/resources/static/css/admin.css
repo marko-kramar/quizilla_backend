@@ -2,6 +2,8 @@
 
 }
 
-th.row-number-header {
-    width: 20px;
+th.row-number-header,
+th.checkbox-col
+{
+    width: 20px !important;
 }

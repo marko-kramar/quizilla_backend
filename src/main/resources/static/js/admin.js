@@ -1,10 +1,15 @@
+let allHeadCheckboxes = $("table thead .checkbox-col input[type='checkbox']");
+
 $(function() {
     loadQuestions();
     handleTabSwitchingBehavior();
+    handleCheckboxesBehavior();
 });
 
 function handleTabSwitchingBehavior() {
     $("a[data-toggle='tab']").on("shown.bs.tab", function(e) {
+        allHeadCheckboxes.prop("checked", false);
+
         let tab = $(e.target).data("tab");
         if (tab === "questions") {
             loadQuestions();
@@ -16,6 +21,14 @@ function handleTabSwitchingBehavior() {
     })
 };
 
+function handleCheckboxesBehavior() {
+    allHeadCheckboxes.click(function() {
+        let parentTable = $(this).closest("table");
+        let allBodyCheckboxes = parentTable.find("tbody .checkbox-col input[type='checkbox']");
+        allBodyCheckboxes.prop("checked", $(this).is(":checked"));
+    });
+};
+
 function loadQuestions() {
     let tableBody = QuizillaUtil.getClearTableBody($(".tab-content #questions #questions-table tbody"));
 
@@ -25,6 +38,7 @@ function loadQuestions() {
             questions.forEach((question, i) => {
                 let rowElem = $(document.createElement("tr")).appendTo(tableBody);
 
+                QuizillaUtil.createCheckboxCell(i+1, rowElem);
                 QuizillaUtil.createRowNumCell(i+1, rowElem);
                 QuizillaUtil.createDataCell(question.id, rowElem);
                 QuizillaUtil.createDataCell(question.question, rowElem);
@@ -44,6 +58,7 @@ function loadCategories() {
             categories.forEach((category, i) => {
                 let rowElem = $(document.createElement("tr")).appendTo(tableBody);
 
+                QuizillaUtil.createCheckboxCell(i+1, rowElem);
                 QuizillaUtil.createRowNumCell(i+1, rowElem);
                 QuizillaUtil.createDataCell(category.id, rowElem);
                 QuizillaUtil.createDataCell(category.code, rowElem);
@@ -61,6 +76,7 @@ function loadLanguages() {
             languages.forEach((language, i) => {
                 let rowElem = $(document.createElement("tr")).appendTo(tableBody);
 
+                QuizillaUtil.createCheckboxCell(i+1, rowElem);
                 QuizillaUtil.createRowNumCell(i+1, rowElem);
                 QuizillaUtil.createDataCell(language.id, rowElem);
                 QuizillaUtil.createDataCell(language.code, rowElem);

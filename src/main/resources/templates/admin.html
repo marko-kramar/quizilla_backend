@@ -10,10 +10,17 @@
         <link rel="stylesheet" type="text/css" href="../css/admin.css" />
     </head>
     <body>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">
+                <img src="../images/trex.png" height="40" alt="">
+                Quizilla
+            </a>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search everything" aria-label="Search">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
         <div class="container-fluid">
-            <br>
-            <br>
-            <h3>Quzilla Questions Admin</h3>
             <br>
             <div class="row">
                 <div class="col-xl-12">
@@ -38,7 +45,10 @@
                                             <i class="fas fa-plus-circle"></i>
                                             Add new
                                         </button>
-                                        <button disabled id="delete-question" type="button" class="btn btn-danger">Delete selected</button>
+                                        <button id="delete-question" type="button" class="btn btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                            Delete selected
+                                        </button>
                                     </div>
                                     <div class="col-xl-3">
                                         <div class="input-group mb-3">
@@ -50,6 +60,11 @@
                             <div class="container-fluid questions-container">
                                 <table class="table table-striped table-hover table-bordered" id="questions-table">
                                     <thead>
+                                        <th scope="col" class="checkbox-col">
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="form-check-input" type="checkbox">
+                                            </div>
+                                        </th>
                                         <th scope="col" class="row-number-header">#</th>
                                         <th scope="col">ID</th>
                                         <th scope="col">Question</th>
@@ -68,8 +83,14 @@
                             <div class="container-fluid buttons-container">
                                 <div class="row">
                                     <div class="col-xl-9">
-                                        <button id="add-new-category" type="button" class="btn btn-primary">Add new</button>
-                                        <button disabled id="delete-category" type="button" class="btn btn-danger">Delete selected</button>
+                                        <button id="add-new-category" type="button" class="btn btn-primary">
+                                            <i class="fas fa-plus-circle"></i>
+                                            Add new
+                                        </button>
+                                        <button id="delete-category" type="button" class="btn btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                            Delete selected
+                                        </button>
                                     </div>
                                     <div class="col-xl-3">
                                         <div class="input-group mb-3">
@@ -81,6 +102,11 @@
                             <div class="container-fluid categories-container">
                                 <table class="table table-striped table-hover table-bordered" id="categories-table">
                                     <thead>
+                                        <th scope="col" class="checkbox-col">
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="form-check-input" type="checkbox">
+                                            </div>
+                                        </th>
                                         <th scope="col" class="row-number-header">#</th>
                                         <th scope="col">ID</th>
                                         <th scope="col">Category code</th>
@@ -97,8 +123,14 @@
                             <div class="container-fluid buttons-container">
                                 <div class="row">
                                     <div class="col-xl-9">
-                                        <button id="add-new-language" type="button" class="btn btn-primary">Add new</button>
-                                        <button disabled id="delete-language" type="button" class="btn btn-danger">Delete selected</button>
+                                        <button id="add-new-language" type="button" class="btn btn-primary">
+                                            <i class="fas fa-plus-circle"></i>
+                                            Add new
+                                        </button>
+                                        <button id="delete-language" type="button" class="btn btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                            Delete selected
+                                        </button>
                                     </div>
                                     <div class="col-xl-3">
                                         <div class="input-group mb-3">
@@ -110,6 +142,11 @@
                             <div class="container-fluid languages-container">
                                 <table class="table table-striped table-hover table-bordered" id="languages-table">
                                     <thead>
+                                        <th scope="col" class="checkbox-col">
+                                            <div class="custom-control custom-checkbox">
+                                                <input class="form-check-input" type="checkbox">
+                                            </div>
+                                        </th>
                                         <th scope="col" class="row-number-header">#</th>
                                         <th scope="col">ID</th>
                                         <th scope="col">Language code</th>
