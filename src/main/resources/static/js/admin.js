@@ -4,7 +4,32 @@ $(function() {
     loadQuestions();
     handleTabSwitchingBehavior();
     handleCheckboxesBehavior();
+    handleNewEntryButtonClicks();
 });
+
+function handleNewEntryButtonClicks() {
+    $(".btn-add-new-entry").click(function() {
+        if ($(this).hasClass("btn-add-new-question")) {
+            showQuestionDialog();
+        } else if ($(this).hasClass("btn-add-new-category")) {
+            showCategoryDialog();
+        } else if ($(this).hasClass("btn-add-new-language")) {
+           showLanguageDialog();
+        }
+    });
+};
+
+function showQuestionDialog(editId) {
+    $("#question-dialog").modal("show");
+};
+
+function showCategoryDialog(editId) {
+    $("#category-dialog").modal("show");
+};
+
+function showLanguageDialog(editId) {
+    $("#language-dialog").modal("show");
+};
 
 function handleTabSwitchingBehavior() {
     $("a[data-toggle='tab']").on("shown.bs.tab", function(e) {

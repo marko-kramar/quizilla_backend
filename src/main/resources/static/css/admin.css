@@ -18,3 +18,12 @@ nav.navbar.navbar-light {
 th.id-header {
     display: none !important;
 }
+
+#edit-question-text {
+    resize: none !important;
+    height: 75px;
+}
+
+.form-group.possible-answers .input-group {
+    margin-bottom: 10px;
+}

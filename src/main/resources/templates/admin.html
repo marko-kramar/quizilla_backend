@@ -4,6 +4,7 @@
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Quizilla | Questions Editor</title>
+
         <!-- FontAwesome 5.12.1 -->
         <link rel="stylesheet" type="text/css" href="../vendor/all.min.css"/>
         <link rel="stylesheet" type="text/css" href="../vendor/bootstrap.min.css"/>
@@ -47,11 +48,11 @@
                             <div class="container-fluid buttons-container">
                                 <div class="row">
                                     <div class="col-xl-9">
-                                        <button id="add-new-question" type="button" class="btn btn-primary">
+                                        <button type="button" class="btn btn-primary btn-add-new-entry btn-add-new-question">
                                             <i class="fas fa-plus-circle"></i>
                                             Add new
                                         </button>
-                                        <button id="delete-question" type="button" class="btn btn-danger">
+                                        <button id="delete-question" type="button" class="btn btn-danger btn-delete-entry btn-delete-question">
                                             <i class="fas fa-trash"></i>
                                             Delete selected
                                         </button>
@@ -90,11 +91,11 @@
                             <div class="container-fluid buttons-container">
                                 <div class="row">
                                     <div class="col-xl-9">
-                                        <button id="add-new-category" type="button" class="btn btn-primary">
+                                        <button type="button" class="btn btn-primary btn-add-new-entry btn-add-new-category">
                                             <i class="fas fa-plus-circle"></i>
                                             Add new
                                         </button>
-                                        <button id="delete-category" type="button" class="btn btn-danger">
+                                        <button type="button" class="btn btn-danger btn-delete-entry btn-delete-category">
                                             <i class="fas fa-trash"></i>
                                             Delete selected
                                         </button>
@@ -131,11 +132,11 @@
                             <div class="container-fluid buttons-container">
                                 <div class="row">
                                     <div class="col-xl-9">
-                                        <button id="add-new-language" type="button" class="btn btn-primary">
+                                        <button id="add-new-language" type="button" class="btn btn-primary btn-add-new-entry btn-add-new-language">
                                             <i class="fas fa-plus-circle"></i>
                                             Add new
                                         </button>
-                                        <button id="delete-language" type="button" class="btn btn-danger">
+                                        <button id="delete-language" type="button" class="btn btn-danger btn-delete-entry btn-delete-language">
                                             <i class="fas fa-trash"></i>
                                             Delete selected
                                         </button>
@@ -167,6 +168,150 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- dialogs -->
+        <div class="modal fade" id="question-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >New question</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="edit-question-text" class="col-form-label">Question text:</label>
+                                <textarea class="form-control" id="edit-question-text"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="edit-question-category">Category</label>
+                                    </div>
+                                    <select class="custom-select" id="edit-question-category">
+                                        <option selected>Choose...</option>
+                                        <option value="1">Category 1</option>
+                                        <option value="2">Category 2</option>
+                                        <option value="3">Category 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="edit-question-language">Language</label>
+                                    </div>
+                                    <select class="custom-select" id="edit-question-language">
+                                        <option selected>Choose...</option>
+                                        <option value="1">Language 1</option>
+                                        <option value="2">Language 2</option>
+                                        <option value="3">Language 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group possible-answers">
+                                <label class="col-form-label">Possible answers (choose correct):</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="radio" name="edit-question-answer-radio" id="edit-question-answer-1-radio">
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="edit-question-answer-1-text">
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="radio" name="edit-question-answer-radio" id="edit-question-answer-2-radio">
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="edit-question-answer-2-text">
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="radio" name="edit-question-answer-radio" id="edit-question-answer-3-radio">
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="edit-question-answer-3-text">
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="radio" name="edit-question-answer-radio" id="edit-question-answer-4-radio">
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="edit-question-answer-4-text">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="category-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >New category</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                <input type="text" class="form-control" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Message:</label>
+                                <textarea class="form-control" id="message-text"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Send message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="language-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >New language</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                <input type="text" class="form-control" id="recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Message:</label>
+                                <textarea class="form-control" id="message-text"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Send message</button>
                     </div>
                 </div>
             </div>
