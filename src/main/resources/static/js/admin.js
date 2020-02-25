@@ -1,34 +1,48 @@
 let allHeadCheckboxes = $("table thead .checkbox-col input[type='checkbox']");
 
 $(function() {
-    loadQuestions();
+    loadQuestionsTableWithData();
     handleTabSwitchingBehavior();
     handleCheckboxesBehavior();
     handleNewEntryButtonClicks();
+    handleEditEntryActionIconClicks();
+    handleDialogShownAndHiddenEvents();
 });
+
+function handleDialogShownAndHiddenEvents() {
+    $("#question-dialog").on("shown.bs.modal", QuizillaUtil.onQuestionDialogShown);
+    $("#category-dialog").on("shown.bs.modal", QuizillaUtil.onCategoryDialogShown);
+    $("#language-dialog").on("shown.bs.modal", QuizillaUtil.onLanguageDialogShown);
+
+    $("#question-dialog").on("hidden.bs.modal", QuizillaUtil.onQuestionDialogHidden);
+    $("#category-dialog").on("hidden.bs.modal", QuizillaUtil.onCategoryDialogHidden);
+    $("#language-dialog").on("hidden.bs.modal", QuizillaUtil.onLanguageDialogHidden);
+};
 
 function handleNewEntryButtonClicks() {
     $(".btn-add-new-entry").click(function() {
         if ($(this).hasClass("btn-add-new-question")) {
-            showQuestionDialog();
+            QuizillaUtil.showModalDialog("question-dialog");
         } else if ($(this).hasClass("btn-add-new-category")) {
-            showCategoryDialog();
+            QuizillaUtil.showModalDialog("category-dialog");
         } else if ($(this).hasClass("btn-add-new-language")) {
-           showLanguageDialog();
+            QuizillaUtil.showModalDialog("language-dialog");
         }
     });
 };
 
-function showQuestionDialog(editId) {
-    $("#question-dialog").modal("show");
-};
+function handleEditEntryActionIconClicks() {
+    $("#questions-table").on("click", ".edit-action", function() {
+        QuizillaUtil.showModalDialog("question-dialog", $(this).data("id-to-edit"), "edit-question-id");
+    });
 
-function showCategoryDialog(editId) {
-    $("#category-dialog").modal("show");
-};
+    $("#categories-table").on("click", ".edit-action", function() {
+        QuizillaUtil.showModalDialog("category-dialog", $(this).data("id-to-edit"), "edit-category-id");
+    });
 
-function showLanguageDialog(editId) {
-    $("#language-dialog").modal("show");
+    $("#languages-table").on("click", ".edit-action", function() {
+        QuizillaUtil.showModalDialog("language-dialog", $(this).data("id-to-edit"), "edit-language-id");
+    });
 };
 
 function handleTabSwitchingBehavior() {
@@ -37,11 +51,11 @@ function handleTabSwitchingBehavior() {
 
         let tab = $(e.target).data("tab");
         if (tab === "questions") {
-            loadQuestions();
+            loadQuestionsTableWithData();
         } else if (tab === "categories") {
-            loadCategories();
+            loadCategoriesTableWithData();
         } else if (tab === "languages") {
-            loadLanguages();
+            loadLanguagesTableWithData();
         }
     })
 };
@@ -54,67 +68,58 @@ function handleCheckboxesBehavior() {
     });
 };
 
-function loadQuestions() {
-    let tableBody = QuizillaUtil.getClearTableBody($(".tab-content #questions #questions-table tbody"));
+function loadQuestionsTableWithData() {
+    let tableBody = QuizillaUtil.clearAndGetTableBody("questions-table");
 
-    fetch("api/questions")
-        .then((response) => response.json())
-        .then((questions) => {
-            questions.forEach((question, i) => {
-                let rowElem = $(document.createElement("tr")).appendTo(tableBody);
-
-                QuizillaUtil.createCheckboxCell(i+1, rowElem);
-                QuizillaUtil.createRowNumCell(i+1, rowElem);
-                QuizillaUtil.createDataCell(question.id, rowElem, true);
-                QuizillaUtil.createDataCell(question.question, rowElem);
-                QuizillaUtil.createDataCell(question.category.name, rowElem);
-                QuizillaUtil.createDataCell(question.language.name, rowElem);
-                QuizillaUtil.createDataCell(question.answers[question.correctAnswerId], rowElem);
-                QuizillaUtil.createActionsCell(rowElem, question.id);
-            });
-
-            $("[data-toggle='tooltip']").tooltip();
+    QuizillaUtil.fetchFromUrl("api/questions", function(questions) {
+        questions.forEach((question, i) => {
+            let rowElem = QuizillaUtil.createRow(tableBody);
+            QuizillaUtil.createCheckboxCell(i+1, rowElem);
+            QuizillaUtil.createRowNumCell(i+1, rowElem);
+            QuizillaUtil.createDataCell(question.id, rowElem, true);
+            QuizillaUtil.createDataCell(question.question, rowElem);
+            QuizillaUtil.createDataCell(question.category.name, rowElem);
+            QuizillaUtil.createDataCell(question.language.name, rowElem);
+            QuizillaUtil.createDataCell(question.answers[question.correctAnswerId], rowElem);
+            QuizillaUtil.createActionsCell(rowElem, question.id);
         });
+
+        $("[data-toggle='tooltip']").tooltip();
+    });
 };
 
-function loadCategories() {
-    let tableBody = QuizillaUtil.getClearTableBody($(".tab-content #categories #categories-table tbody"));
+function loadCategoriesTableWithData() {
+    let tableBody = QuizillaUtil.clearAndGetTableBody("categories-table");
 
-    fetch("api/categories")
-        .then((response) => response.json())
-        .then((categories) => {
-            categories.forEach((category, i) => {
-                let rowElem = $(document.createElement("tr")).appendTo(tableBody);
-
-                QuizillaUtil.createCheckboxCell(i+1, rowElem);
-                QuizillaUtil.createRowNumCell(i+1, rowElem);
-                QuizillaUtil.createDataCell(category.id, rowElem, true);
-                QuizillaUtil.createDataCell(category.code, rowElem);
-                QuizillaUtil.createDataCell(category.name, rowElem);
-                QuizillaUtil.createActionsCell(rowElem, category.id);
-            });
-
-            $("[data-toggle='tooltip']").tooltip();
+    QuizillaUtil.fetchFromUrl("api/categories", function(categories) {
+        categories.forEach((category, i) => {
+            let rowElem = QuizillaUtil.createRow(tableBody);
+            QuizillaUtil.createCheckboxCell(i+1, rowElem);
+            QuizillaUtil.createRowNumCell(i+1, rowElem);
+            QuizillaUtil.createDataCell(category.id, rowElem, true);
+            QuizillaUtil.createDataCell(category.code, rowElem);
+            QuizillaUtil.createDataCell(category.name, rowElem);
+            QuizillaUtil.createActionsCell(rowElem, category.id);
         });
+
+        $("[data-toggle='tooltip']").tooltip();
+    });
 };
 
-function loadLanguages() {
-    let tableBody = QuizillaUtil.getClearTableBody($(".tab-content #languages #languages-table tbody"));
+function loadLanguagesTableWithData() {
+    let tableBody = QuizillaUtil.clearAndGetTableBody("languages-table");
 
-    fetch("api/languages")
-        .then((response) => response.json())
-        .then((languages) => {
-            languages.forEach((language, i) => {
-                let rowElem = $(document.createElement("tr")).appendTo(tableBody);
-
-                QuizillaUtil.createCheckboxCell(i+1, rowElem);
-                QuizillaUtil.createRowNumCell(i+1, rowElem);
-                QuizillaUtil.createDataCell(language.id, rowElem, true);
-                QuizillaUtil.createDataCell(language.code, rowElem);
-                QuizillaUtil.createDataCell(language.name, rowElem);
-                QuizillaUtil.createActionsCell(rowElem, language.id);
-            });
-
-            $("[data-toggle='tooltip']").tooltip();
+    QuizillaUtil.fetchFromUrl("api/languages", function(languages) {
+        languages.forEach((language, i) => {
+            let rowElem = QuizillaUtil.createRow(tableBody);
+            QuizillaUtil.createCheckboxCell(i+1, rowElem);
+            QuizillaUtil.createRowNumCell(i+1, rowElem);
+            QuizillaUtil.createDataCell(language.id, rowElem, true);
+            QuizillaUtil.createDataCell(language.code, rowElem);
+            QuizillaUtil.createDataCell(language.name, rowElem);
+            QuizillaUtil.createActionsCell(rowElem, language.id);
         });
+
+        $("[data-toggle='tooltip']").tooltip();
+    });
 };

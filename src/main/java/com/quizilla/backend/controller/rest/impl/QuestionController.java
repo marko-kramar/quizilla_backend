@@ -9,6 +9,7 @@ import com.quizilla.backend.service.CategoryService;
 import com.quizilla.backend.service.LanguageService;
 import com.quizilla.backend.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.BasePathAwareController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,11 @@ public class QuestionController {
     @GetMapping
     public List<Question> findAll() {
         return (List<Question>) questionRepository.findAll();
+    }
+
+    @GetMapping(path = "/{id}")
+    public Question findOne(@PathVariable("id") Long entityId) throws QuizillaEntityNotFoundException {
+        return questionRepository.findById(entityId).orElseThrow(() -> new QuizillaEntityNotFoundException(entityId));
     }
 
     @PostMapping

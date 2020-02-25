@@ -172,18 +172,23 @@
                 </div>
             </div>
         </div>
+
         <!-- dialogs -->
         <div class="modal fade" id="question-dialog" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" >New question</h5>
+                        <h5 class="modal-title">New question</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <form>
+                            <div class="form-group entity-id-container">
+                                <label for="edit-question-id" class="col-form-label">Language ID:</label>
+                                <input type="text" class="form-control" id="edit-question-id">
+                            </div>
                             <div class="form-group">
                                 <label for="edit-question-text" class="col-form-label">Question text:</label>
                                 <textarea class="form-control" id="edit-question-text"></textarea>
@@ -194,10 +199,7 @@
                                         <label class="input-group-text" for="edit-question-category">Category</label>
                                     </div>
                                     <select class="custom-select" id="edit-question-category">
-                                        <option selected>Choose...</option>
-                                        <option value="1">Category 1</option>
-                                        <option value="2">Category 2</option>
-                                        <option value="3">Category 3</option>
+
                                     </select>
                                 </div>
                             </div>
@@ -207,10 +209,7 @@
                                         <label class="input-group-text" for="edit-question-language">Language</label>
                                     </div>
                                     <select class="custom-select" id="edit-question-language">
-                                        <option selected>Choose...</option>
-                                        <option value="1">Language 1</option>
-                                        <option value="2">Language 2</option>
-                                        <option value="3">Language 3</option>
+
                                     </select>
                                 </div>
                             </div>
@@ -253,7 +252,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-primary" id="btn-save-question">Save</button>
                     </div>
                 </div>
             </div>
@@ -263,26 +262,30 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" >New category</h5>
+                        <h5 class="modal-title">New category</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <form>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                            <div class="form-group entity-id-container">
+                                <label for="edit-category-id" class="col-form-label">Category ID:</label>
+                                <input type="text" class="form-control" id="edit-category-id">
                             </div>
                             <div class="form-group">
-                                <label for="message-text" class="col-form-label">Message:</label>
-                                <textarea class="form-control" id="message-text"></textarea>
+                                <label for="edit-category-code" class="col-form-label">Category code:</label>
+                                <input type="text" class="form-control" id="edit-category-code">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-category-name" class="col-form-label">Category name:</label>
+                                <input type="text" class="form-control" id="edit-category-name">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Send message</button>
+                        <button type="button" class="btn btn-primary" id="btn-save-category">Save</button>
                     </div>
                 </div>
             </div>
@@ -292,30 +295,35 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" >New language</h5>
+                        <h5 class="modal-title">New language</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <form>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                            <div class="form-group entity-id-container">
+                                <label for="edit-language-id" class="col-form-label">Language ID:</label>
+                                <input type="text" class="form-control" id="edit-language-id">
                             </div>
                             <div class="form-group">
-                                <label for="message-text" class="col-form-label">Message:</label>
-                                <textarea class="form-control" id="message-text"></textarea>
+                                <label for="edit-language-code" class="col-form-label">Language code:</label>
+                                <input type="text" class="form-control" id="edit-language-code">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-language-name" class="col-form-label">Language name:</label>
+                                <input type="text" class="form-control" id="edit-language-name">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Send message</button>
+                        <button type="button" class="btn btn-primary" id="btn-save-language">Save</button>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- external vendor resources -->
         <script src="../vendor/jquery-3.4.1.min.js"></script>
         <script src="../vendor/bootstrap.bundle.min.js"></script>

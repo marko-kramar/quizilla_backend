@@ -54,7 +54,95 @@ QuizillaUtil.createActionsCell = function(parentElem, id) {
     });
 };
 
-QuizillaUtil.getClearTableBody = function(tableBodyElem) {
-    tableBodyElem.html("");
-    return tableBodyElem;
+QuizillaUtil.clearAndGetTableBody = function(tableId) {
+    let tableBody = $("#" + tableId + " tbody");
+    tableBody.html("");
+    return tableBody;
+};
+
+QuizillaUtil.createRow = function(tableBody) {
+    return $(document.createElement("tr")).appendTo(tableBody);
+};
+
+QuizillaUtil.fetchFromUrl = function(url, successCallback) {
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            successCallback(data);
+        });
+};
+
+QuizillaUtil.showModalDialog = function(dialogId, entityId, fieldId) {
+    $("#" + dialogId).modal("show");
+    if (entityId && fieldId) {
+        $("#" + fieldId).val(entityId);
+    }
+};
+
+// onDialogShown events
+QuizillaUtil.onQuestionDialogShown = function() {
+    let inEditMode = $("#edit-question-id").val() !== "";
+
+    if (!inEditMode) {
+        $("#edit-question-answer-1-radio").prop("checked", true);
+    }
+
+    let categorySelect = $("#edit-question-category");
+    QuizillaUtil.fetchFromUrl("api/categories", function(categories) {
+        categories.forEach(category => {
+            let categoryOption = $(document.createElement("option")).appendTo(categorySelect);
+            categoryOption.attr("value", category.id);
+            categoryOption.text(category.name);
+        });
+   });
+
+    let languageSelect = $("#edit-question-language");
+    QuizillaUtil.fetchFromUrl("api/languages", function(languages) {
+        languages.forEach(language => {
+            let languageOption = $(document.createElement("option")).appendTo(languageSelect);
+            languageOption.attr("value", language.id);
+            languageOption.text(language.name);
+        });
+    });
+
+    if (inEditMode) {
+        let id = $("#edit-question-id").val();
+        QuizillaUtil.fetchFromUrl("api/questions/" + id, function(question) {
+            $("#edit-question-text").val(question.question);
+        });
+
+        // TODO: Continue work
+    }
+};
+
+QuizillaUtil.onCategoryDialogShown = function() {
+
+};
+
+QuizillaUtil.onLanguageDialogShown = function() {
+
+};
+
+
+// onDialogHidden events
+QuizillaUtil.onQuestionDialogHidden = function() {
+    $("#edit-question-id").val("");
+    $("#edit-question-text").val("");
+    $("#edit-question-category").html("");
+    $("#edit-question-language").html("");
+    $("#edit-question-answer-1-text, #edit-question-answer-2-text, " +
+        "#edit-question-answer-3-text, #edit-question-answer-4-text").val("");
+    $("input[name='edit-question-answer']").removeAttr("checked");
+};
+
+QuizillaUtil.onCategoryDialogHidden = function() {
+    $("#edit-category-id").val("");
+    $("#edit-category-code").val("");
+    $("#edit-category-name").val("");
+};
+
+QuizillaUtil.onLanguageDialogHidden = function() {
+    $("#edit-language-id").val("");
+    $("#edit-language-code").val("");
+    $("#edit-language-name").val("");
 };

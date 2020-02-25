@@ -27,3 +27,11 @@ th.id-header {
 .form-group.possible-answers .input-group {
     margin-bottom: 10px;
 }
+
+.entity-id-container {
+    display: none;
+}
+
+label[for='edit-question-category'] {
+    width: 94px;
+}
