@@ -267,7 +267,30 @@ QuizillaUtil.onLanguageDialogHidden = function() {
 
 // Save button click events
 QuizillaUtil.saveQuestion = function() {
+    let question = {};
+    question.question = $("#edit-question-text").val();
+    question.categoryId = $("#edit-question-category").val();
+    question.languageId = $("#edit-question-language").val();
 
+    let checkedRadioButton = $("input[name='edit-question-answer-radio']:checked");
+    let answerInputGroup = checkedRadioButton.closest(".answer-input-group");
+    question.correctAnswerId = answerInputGroup.data("for-answer-id");
+
+    question.answers = {};
+    $("#question-dialog .answer-input-group").each(function() {
+        let id = $(this).data("for-answer-id");
+        let answer = $(this).find(".edit-question-answer-text").val();
+        question.answers[id] = answer;
+    });
+
+    let questionId = $("#edit-question-id").val();
+    let uri = "api/questions" + (questionId ? "/" + questionId : "");
+    let method = questionId ? "PUT" : "POST";
+    QuizillaRest.saveEntity(uri, question, method, function(data) {
+        $("#question-dialog").modal("hide");
+        QuizillaUtil.loadQuestionsTableWithData();
+        QuizillaUtil.showSuccessMessage("Question saved successfully!");
+    });
 };
 
 QuizillaUtil.saveCategory = function() {
