@@ -81,37 +81,55 @@ QuizillaUtil.showModalDialog = function(dialogId, entityId, fieldId) {
 
 // onDialogShown events
 QuizillaUtil.onQuestionDialogShown = function() {
-    let inEditMode = $("#edit-question-id").val() !== "";
-
-    if (!inEditMode) {
-        $("#edit-question-answer-1-radio").prop("checked", true);
+    var selectedQuestion = null;
+    if ($("#edit-question-id").val() !== "") {
+        QuizillaUtil.fetchFromUrl("api/questions/" + $("#edit-question-id").val(), function(question) {
+            selectedQuestion = question;
+            fillEditForm();
+        });
+    } else {
+        fillEditForm();
     }
 
-    let categorySelect = $("#edit-question-category");
-    QuizillaUtil.fetchFromUrl("api/categories", function(categories) {
-        categories.forEach(category => {
-            let categoryOption = $(document.createElement("option")).appendTo(categorySelect);
-            categoryOption.attr("value", category.id);
-            categoryOption.text(category.name);
-        });
-   });
+    function fillEditForm() {
+        if (selectedQuestion) {
+            $("#edit-question-text").val(selectedQuestion.question);
+        }
 
-    let languageSelect = $("#edit-question-language");
-    QuizillaUtil.fetchFromUrl("api/languages", function(languages) {
-        languages.forEach(language => {
-            let languageOption = $(document.createElement("option")).appendTo(languageSelect);
-            languageOption.attr("value", language.id);
-            languageOption.text(language.name);
-        });
-    });
+        let categorySelect = $("#edit-question-category");
+        QuizillaUtil.fetchFromUrl("api/categories", function(categories) {
+            categories.forEach(category => {
+                let categoryOption = $(document.createElement("option")).appendTo(categorySelect);
+                categoryOption.attr("value", category.id);
+                categoryOption.text(category.name);
 
-    if (inEditMode) {
-        let id = $("#edit-question-id").val();
-        QuizillaUtil.fetchFromUrl("api/questions/" + id, function(question) {
-            $("#edit-question-text").val(question.question);
+                if (selectedQuestion && selectedQuestion.category.id == category.id) {
+                    categoryOption.prop("selected", true);
+                }
+            });
+       });
+
+        let languageSelect = $("#edit-question-language");
+        QuizillaUtil.fetchFromUrl("api/languages", function(languages) {
+            languages.forEach(language => {
+                let languageOption = $(document.createElement("option")).appendTo(languageSelect);
+                languageOption.attr("value", language.id);
+                languageOption.text(language.name);
+
+                if (selectedQuestion && selectedQuestion.language.id == language.id) {
+                    languageOption.prop("selected", true);
+                }
+            });
         });
 
-        // TODO: Continue work
+        if (!selectedQuestion) {
+            $("#question-dialog .possible-answers .answer-input-group").each(function(index) {
+                var i = index + 1;
+                // TODO: Continue
+            });
+        }
+
+        $("#edit-question-text").focus();
     }
 };
 
