@@ -123,10 +123,27 @@ QuizillaUtil.onQuestionDialogShown = function() {
         });
 
         if (!selectedQuestion) {
-            $("#question-dialog .possible-answers .answer-input-group").each(function(index) {
-                var i = index + 1;
-                // TODO: Continue
+            $("#question-dialog .answer-input-group").each(function(index) {
+                let i = index + 1;
+                $(this).data("for-answer-id", i);
+                if (i == 1) {
+                    $(this).find(".edit-question-answer-radio").prop("checked", true);
+                }
             });
+        } else {
+            let i=0;
+            for (let answerId in selectedQuestion.answers) {
+                let answer = selectedQuestion.answers[answerId];
+
+                let answerInputGroup = $("#question-dialog .answer-input-group:eq('" + i + "')");
+                answerInputGroup.find(".edit-question-answer-text").val(answer);
+                answerInputGroup.data("for-answer-id", answerId);
+                if (parseInt(answerId) === selectedQuestion.correctAnswerId) {
+                    answerInputGroup.find(".edit-question-answer-radio").prop("checked", true);
+                }
+
+                i++;
+            }
         }
 
         $("#edit-question-text").focus();
@@ -148,9 +165,11 @@ QuizillaUtil.onQuestionDialogHidden = function() {
     $("#edit-question-text").val("");
     $("#edit-question-category").html("");
     $("#edit-question-language").html("");
-    $("#edit-question-answer-1-text, #edit-question-answer-2-text, " +
-        "#edit-question-answer-3-text, #edit-question-answer-4-text").val("");
-    $("input[name='edit-question-answer']").removeAttr("checked");
+    $("#question-dialog .possible-answers .answer-input-group").each(function() {
+        $(this).removeData("for-answer-id");
+        $(this).find(".edit-question-answer-radio").prop("checked", false);
+        $(this).find(".edit-question-answer-text").val("");
+    });
 };
 
 QuizillaUtil.onCategoryDialogHidden = function() {
