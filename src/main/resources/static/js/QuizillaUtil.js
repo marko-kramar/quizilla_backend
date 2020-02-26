@@ -217,3 +217,32 @@ QuizillaUtil.onLanguageDialogHidden = function() {
     $("#edit-language-code").val("");
     $("#edit-language-name").val("");
 };
+
+// Save button click events
+QuizillaUtil.onQuestionSaveButtonClicked = function() {
+
+};
+
+QuizillaUtil.onCategorySaveButtonClicked = function() {
+    let category = {};
+    category.code = $("#edit-category-code").val();
+    category.name = $("#edit-category-name").val();
+
+    fetch("api/categories", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(category),
+    }).then((response) => response.json())
+    .then((data) => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+};
+
+QuizillaUtil.onLanguageSaveButtonClicked = function() {
+
+};

@@ -7,7 +7,14 @@ $(function() {
     handleNewEntryButtonClicks();
     handleEditEntryActionIconClicks();
     handleDialogShownAndHiddenEvents();
+    handleDialogSaveEvents();
 });
+
+function handleDialogSaveEvents() {
+    $("#question-dialog #btn-save-question").click(QuizillaUtil.onQuestionSaveButtonClicked);
+    $("#category-dialog #btn-save-category").click(QuizillaUtil.onCategorySaveButtonClicked);
+    $("#language-dialog #btn-save-language").click(QuizillaUtil.onLanguageSaveButtonClicked);
+};
 
 function handleDialogShownAndHiddenEvents() {
     $("#question-dialog").on("shown.bs.modal", QuizillaUtil.onQuestionDialogShown);
