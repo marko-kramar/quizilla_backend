@@ -191,7 +191,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="edit-question-text" class="col-form-label">Question text:</label>
-                                <textarea class="form-control" id="edit-question-text"></textarea>
+                                <textarea class="form-control" id="edit-question-text" required></textarea>
                             </div>
                             <div class="form-group">
                                 <div class="input-group mb-3">
@@ -221,7 +221,7 @@
                                             <input class="edit-question-answer-radio" type="radio" name="edit-question-answer-radio">
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control edit-question-answer-text">
+                                    <input type="text" class="form-control edit-question-answer-text" required>
                                 </div>
                                 <div class="input-group answer-input-group">
                                     <div class="input-group-prepend">
@@ -229,7 +229,7 @@
                                             <input class="edit-question-answer-radio" type="radio" name="edit-question-answer-radio">
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control edit-question-answer-text">
+                                    <input type="text" class="form-control edit-question-answer-text" required>
                                 </div>
                                 <div class="input-group answer-input-group">
                                     <div class="input-group-prepend">
@@ -237,7 +237,7 @@
                                             <input class="edit-question-answer-radio" type="radio" name="edit-question-answer-radio">
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control edit-question-answer-text">
+                                    <input type="text" class="form-control edit-question-answer-text" required>
                                 </div>
                                 <div class="input-group answer-input-group">
                                     <div class="input-group-prepend">
@@ -245,14 +245,14 @@
                                             <input class="edit-question-answer-radio" type="radio" name="edit-question-answer-radio">
                                         </div>
                                     </div>
-                                    <input type="text" class="form-control edit-question-answer-text">
+                                    <input type="text" class="form-control edit-question-answer-text" required>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="btn-save-question">Save</button>
+                        <button type="button" class="btn btn-primary" id="btn-save-question">Save question</button>
                     </div>
                 </div>
             </div>
@@ -275,21 +275,30 @@
                             </div>
                             <div class="form-group">
                                 <label for="edit-category-code" class="col-form-label">Category code:</label>
-                                <input type="text" class="form-control" id="edit-category-code">
+                                <input type="text" class="form-control" id="edit-category-code" required>
+                                <div class="invalid-feedback">
+                                    Please enter category code.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="edit-category-name" class="col-form-label">Category name:</label>
-                                <input type="text" class="form-control" id="edit-category-name">
+                                <input type="text" class="form-control" id="edit-category-name" required>
+                                <div class="invalid-feedback">
+                                    Please enter category name.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="edit-category-description" class="col-form-label">Category description:</label>
-                                <input type="text" class="form-control" id="edit-category-description">
+                                <input type="text" class="form-control" id="edit-category-description" required>
+                                <div class="invalid-feedback">
+                                    Please enter category description.
+                                </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="btn-save-category">Save</button>
+                        <button type="button" class="btn btn-primary" id="btn-save-category">Save category</button>
                     </div>
                 </div>
             </div>
@@ -312,17 +321,17 @@
                             </div>
                             <div class="form-group">
                                 <label for="edit-language-code" class="col-form-label">Language code:</label>
-                                <input type="text" class="form-control" id="edit-language-code">
+                                <input type="text" class="form-control" id="edit-language-code" required>
                             </div>
                             <div class="form-group">
                                 <label for="edit-language-name" class="col-form-label">Language name:</label>
-                                <input type="text" class="form-control" id="edit-language-name">
+                                <input type="text" class="form-control" id="edit-language-name" required>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="btn-save-language">Save</button>
+                        <button type="button" class="btn btn-primary" id="btn-save-language">Save language</button>
                     </div>
                 </div>
             </div>

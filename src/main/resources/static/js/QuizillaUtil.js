@@ -294,6 +294,14 @@ QuizillaUtil.saveQuestion = function() {
 };
 
 QuizillaUtil.saveCategory = function() {
+    var form = $("#category-dialog form");
+    if (form.checkValidity() === false) {
+        form.addClass("was-validated");
+        return;
+    } else {
+        form.removeClass("was-validated");
+    }
+
     let category = {};
     category.code = $("#edit-category-code").val();
     category.name = $("#edit-category-name").val();
