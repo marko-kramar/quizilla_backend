@@ -134,9 +134,11 @@ QuizillaUtil.onQuestionDialogShown = function() {
         QuizillaRest.fetchFromUrl("api/questions/" + $("#edit-question-id").val(), function(question) {
             selectedQuestion = question;
             fillQuestionEditForm();
+            QuizillaUtil.checkFormValidity($("#question-dialog"));
         });
     } else {
         fillQuestionEditForm();
+        QuizillaUtil.checkFormValidity($("#question-dialog"));
     }
 
     function fillQuestionEditForm() {
@@ -201,9 +203,11 @@ QuizillaUtil.onCategoryDialogShown = function() {
         QuizillaRest.fetchFromUrl("api/categories/" + $("#edit-category-id").val(), function(category) {
             selectedCategory = category;
             fillCategoryEditForm();
+            QuizillaUtil.checkFormValidity($("#category-dialog"));
         });
     } else {
         fillCategoryEditForm();
+        QuizillaUtil.checkFormValidity($("#category-dialog"));
     }
 
     function fillCategoryEditForm() {
@@ -223,9 +227,11 @@ QuizillaUtil.onLanguageDialogShown = function() {
         QuizillaRest.fetchFromUrl("api/languages/" + $("#edit-language-id").val(), function(language) {
             selectedLanguage = language;
             fillLanguageEditForm();
+            QuizillaUtil.checkFormValidity($("#language-dialog"));
         });
     } else {
         fillLanguageEditForm();
+        QuizillaUtil.checkFormValidity($("#language-dialog"));
     }
 
     function fillLanguageEditForm() {
@@ -238,9 +244,10 @@ QuizillaUtil.onLanguageDialogShown = function() {
     }
 };
 
-
 // onDialogHidden events
 QuizillaUtil.onQuestionDialogHidden = function() {
+    QuizillaUtil.removeFormValidationErrors($("#question-dialog"));
+
     $("#edit-question-id").val("");
     $("#edit-question-text").val("");
     $("#edit-question-category").html("");
@@ -253,6 +260,8 @@ QuizillaUtil.onQuestionDialogHidden = function() {
 };
 
 QuizillaUtil.onCategoryDialogHidden = function() {
+    QuizillaUtil.removeFormValidationErrors($("#category-dialog"));
+
     $("#edit-category-id").val("");
     $("#edit-category-code").val("");
     $("#edit-category-name").val("");
@@ -260,6 +269,8 @@ QuizillaUtil.onCategoryDialogHidden = function() {
 };
 
 QuizillaUtil.onLanguageDialogHidden = function() {
+    QuizillaUtil.removeFormValidationErrors($("#language-dialog"));
+
     $("#edit-language-id").val("");
     $("#edit-language-code").val("");
     $("#edit-language-name").val("");
@@ -267,6 +278,10 @@ QuizillaUtil.onLanguageDialogHidden = function() {
 
 // Save button click events
 QuizillaUtil.saveQuestion = function() {
+    if (!QuizillaUtil.checkFormValidity($("#question-dialog"))) {
+        return;
+    }
+
     let question = {};
     question.question = $("#edit-question-text").val();
     question.categoryId = $("#edit-question-category").val();
@@ -294,12 +309,8 @@ QuizillaUtil.saveQuestion = function() {
 };
 
 QuizillaUtil.saveCategory = function() {
-    var form = $("#category-dialog form");
-    if (form.checkValidity() === false) {
-        form.addClass("was-validated");
+    if (!QuizillaUtil.checkFormValidity($("#category-dialog"))) {
         return;
-    } else {
-        form.removeClass("was-validated");
     }
 
     let category = {};
@@ -318,6 +329,10 @@ QuizillaUtil.saveCategory = function() {
 };
 
 QuizillaUtil.saveLanguage = function() {
+    if (!QuizillaUtil.checkFormValidity($("#language-dialog"))) {
+        return;
+    }
+
     let language = {};
     language.code = $("#edit-language-code").val();
     language.name = $("#edit-language-name").val();
@@ -351,4 +366,19 @@ QuizillaUtil.showMessage = function(message, prefix) {
             $(this).remove();
         });
     }, 5000);
-}
+};
+
+QuizillaUtil.checkFormValidity = function(modalDialog) {
+    let form = modalDialog.find("form");
+    if (form.get(0).checkValidity() === false) {
+        form.addClass("was-validated");
+        return false;
+    } else {
+        form.removeClass("was-validated");
+        return true;
+    }
+};
+
+QuizillaUtil.removeFormValidationErrors = function(modalDialog) {
+    modalDialog.find("form").removeClass("was-validated");
+};

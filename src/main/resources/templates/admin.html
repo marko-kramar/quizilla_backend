@@ -52,7 +52,7 @@
                                             <i class="fas fa-plus-circle"></i>
                                             Add new
                                         </button>
-                                        <button id="delete-question" type="button" class="btn btn-danger btn-delete-entry btn-delete-question">
+                                        <button id="delete-question" type="button" class="btn btn-danger btn-delete-entry btn-delete-question" disabled>
                                             <i class="fas fa-trash"></i>
                                             Delete selected
                                         </button>
@@ -95,7 +95,7 @@
                                             <i class="fas fa-plus-circle"></i>
                                             Add new
                                         </button>
-                                        <button type="button" class="btn btn-danger btn-delete-entry btn-delete-category">
+                                        <button type="button" class="btn btn-danger btn-delete-entry btn-delete-category" disabled>
                                             <i class="fas fa-trash"></i>
                                             Delete selected
                                         </button>
@@ -136,7 +136,7 @@
                                             <i class="fas fa-plus-circle"></i>
                                             Add new
                                         </button>
-                                        <button id="delete-language" type="button" class="btn btn-danger btn-delete-entry btn-delete-language">
+                                        <button id="delete-language" type="button" class="btn btn-danger btn-delete-entry btn-delete-language" disabled>
                                             <i class="fas fa-trash"></i>
                                             Delete selected
                                         </button>
@@ -192,6 +192,9 @@
                             <div class="form-group">
                                 <label for="edit-question-text" class="col-form-label">Question text:</label>
                                 <textarea class="form-control" id="edit-question-text" required></textarea>
+                                <div class="invalid-feedback">
+                                    Please enter question text.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group mb-3">
@@ -246,6 +249,9 @@
                                         </div>
                                     </div>
                                     <input type="text" class="form-control edit-question-answer-text" required>
+                                    <div class="invalid-feedback">
+                                        Please enter all 4 answers above.
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -322,10 +328,16 @@
                             <div class="form-group">
                                 <label for="edit-language-code" class="col-form-label">Language code:</label>
                                 <input type="text" class="form-control" id="edit-language-code" required>
+                                <div class="invalid-feedback">
+                                    Please enter language code.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="edit-language-name" class="col-form-label">Language name:</label>
                                 <input type="text" class="form-control" id="edit-language-name" required>
+                                <div class="invalid-feedback">
+                                    Please enter language name.
+                                </div>
                             </div>
                         </form>
                     </div>
